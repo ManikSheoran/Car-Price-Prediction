@@ -20,7 +20,7 @@ feature_order = [
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('./templates/index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -70,7 +70,7 @@ def predict():
         # Make prediction
         predicted_price = model.predict(input_data)
 
-        return render_template('result.html', prediction=predicted_price[0])
+        return render_template('./templates/result.html', prediction=predicted_price[0])
 
 
 if __name__ == '__main__':
