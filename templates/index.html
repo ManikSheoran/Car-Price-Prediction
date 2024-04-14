@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Price Prediction</title>
+</head>
+<body>
+
+<h2>Car Price Prediction</h2>
+
+<form action="/predict" method="post">
+    Mileage (kmpl): <input type="text" name="mileage"><br><br>
+    Engine (CC): <input type="text" name="engine"><br><br>
+    Power (bhp): <input type="text" name="power"><br><br>
+    Seats: <input type="text" name="seats"><br><br>
+    Location:
+    <select name="location">
+        <option value="Bangalore">Bangalore</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Kochi">Kochi</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Coimbatore">Coimbatore</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Pune">Pune</option>
+    </select><br><br>
+    Fuel Type:
+    <select name="fuel_type">
+        <option value="Diesel">Diesel</option>
+        <option value="Petrol">Petrol</option>
+        <option value="LPG">LPG</option>
+    </select><br><br>
+    Transmission:
+    <select name="transmission">
+        <option value="Manual">Manual</option>
+        <option value="Automatic">Automatic</option>
+    </select><br><br>
+    Owner Type:
+    <select name="owner_type">
+        <option value="First">First</option>
+        <option value="Second">Second</option>
+        <option value="Third">Third</option>
+        <option value="Fourth & Above">Fourth & Above</option>
+    </select><br><br>
+    Kilometers Driven: <input type="text" name="kilometers_driven"><br><br>
+    <input type="submit" value="Predict">
+</form>
+
+</body>
+</html>
