@@ -2,112 +2,71 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import r2_score
 import warnings
 
-# Set display options
-pd.set_option("display.max_rows", None)
-pd.set_option("display.max_columns", None)
-
-# Ignore warnings
+# Enable inline plotting for matplotlib
+plt.rcParams['figure.figsize'] = (12, 6)
 warnings.simplefilter(action='ignore')
 
-# Load data
+# Load the dataset
 df = pd.read_csv('train-data-final.csv')
 
-# Drop unnecessary columns
-df.drop(['Unnamed: 0', 'Name', 'New_Price'], axis=1, inplace=True)
+# Data Preprocessing
+df.drop(['Name', 'New_Price', 'Unnamed: 0'], axis=1, inplace=True)
 
-# Drop rows with missing values
+# Dropping rows with empty cells
 df.dropna(subset=['Mileage', 'Engine', 'Power', 'Seats'], inplace=True)
 
-# Convert 'Year' to 'Age'
-df['Age'] = 2024 - df['Year']
+# One-hot encoding categorical variables
+Location = pd.get_dummies(df[['Location']])
+Fuel_t = pd.get_dummies(df[['Fuel_Type']])
+Transmission = pd.get_dummies(df[['Transmission']], drop_first=True)
 
-# Encode categorical variables
-Location = pd.get_dummies(df['Location'])
-Fuel_t = pd.get_dummies(df['Fuel_Type'], prefix='Fuel_Type')
-Transmission = pd.get_dummies(df['Transmission'], drop_first=True)
-
-# Concatenate encoded features to the dataframe
 df = pd.concat([df, Location, Fuel_t, Transmission], axis=1)
+df.drop(["Location", "Fuel_Type", "Transmission"], axis=1, inplace=True)
 
-# Drop original categorical columns and 'Year'
-df.drop(['Location', 'Fuel_Type', 'Transmission', 'Year'], axis=1, inplace=True)
+# Train Test Split
+X = df.loc[:, ['Kilometers_Driven', 'Year', 'Owner_Type', 'Mileage', 'Engine', 'Power',
+               'Seats', 'Fuel_Type_CNG', 'Fuel_Type_Diesel', 'Fuel_Type_LPG', 'Fuel_Type_Petrol']]
+y = df.loc[:, ['Price']]
 
-# Define features and target variable
-X = df[['Kilometers_Driven', 'Owner_Type', 'Mileage', 'Engine', 'Power',
-        'Seats', 'Age', 'Fuel_Type_CNG', 'Fuel_Type_Diesel',
-        'Fuel_Type_LPG', 'Fuel_Type_Petrol']]
-y = df['Price']
+from sklearn.model_selection import train_test_split
 
-# Initialize RandomForestRegressor
-rf = RandomForestRegressor()
-rf.fit(X, y)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=42)
 
+# Scaling the data for better training
+from sklearn.preprocessing import StandardScaler
 
-# Function to get user input and predict car price
-# Function to get user input and predict car price
-def predict_car_price(model):
-        print("Please enter the following details to get the predicted price:")
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
 
-        kilometers_driven = float(input("Enter Kilometers Driven (default 0): ") or 0)
-        owner_type = int(
-                input("Enter Owner Type (0: First, 1: Second, 2: Third, 3: Fourth & Above) (default 0): ") or 0)
-        mileage = float(input("Enter Mileage (kmpl) (default 0): ") or 0)
-        engine = float(input("Enter Engine Displacement (CC) (default 0): ") or 0)
-        power = float(input("Enter Power (bhp) (default 0): ") or 0)
-        seats = int(input("Enter Number of Seats (default 0): ") or 0)
-        year = int(input("Enter Manufacture Year (default 0): ") or 0)
-        age = 2024 - year if year != 0 else 0
+# CatBoostRegressor
+from catboost import CatBoostRegressor
+from sklearn.metrics import mean_squared_error, r2_score
 
-        print("Select Location:")
-        print("1: Ahmedabad")
-        print("2: Bangalore")
-        print("3: Chennai")
-        print("4: Coimbatore")
-        print("5: Delhi")
-        print("6: Hyderabad")
-        print("7: Jaipur")
-        print("8: Kochi")
-        print("9: Kolkata")
-        print("10: Mumbai")
-        print("11: Pune")
-        location_index = int(input("Enter Location Number (default 1): ") or 1) - 1
+model = CatBoostRegressor(iterations=6000,
+                          learning_rate=0.1,
+                          depth=5,
+                          loss_function='RMSE',
+                          verbose=1000)
 
-        fuel_type = input("Enter Fuel Type (Petrol, Diesel, CNG, LPG) (default Petrol): ") or 'Petrol'
-        fuel_type_cng = 1 if fuel_type == 'CNG' else 0
-        fuel_type_diesel = 1 if fuel_type == 'Diesel' else 0
-        fuel_type_lpg = 1 if fuel_type == 'LPG' else 0
-        fuel_type_petrol = 1 if fuel_type == 'Petrol' else 0
+model.fit(X_train, y_train, eval_set=(X_test, y_test))
+y_pred = model.predict(X_test)
 
-        transmission = input("Enter Transmission Type (Manual, Automatic) (default Manual): ") or 'Manual'
-        transmission = 1 if transmission == 'Automatic' else 0
+mse = mean_squared_error(y_test, y_pred)
+r2_test = r2_score(y_test, y_pred)
 
-        # Create input data
-        input_data = pd.DataFrame({
-                'Kilometers_Driven': [kilometers_driven],
-                'Owner_Type': [owner_type],
-                'Mileage': [mileage],
-                'Engine': [engine],
-                'Power': [power],
-                'Seats': [seats],
-                'Age': [age],
-                'Location': [location_index],
-                'Fuel_Type_CNG': [fuel_type_cng],
-                'Fuel_Type_Diesel': [fuel_type_diesel],
-                'Fuel_Type_LPG': [fuel_type_lpg],
-                'Fuel_Type_Petrol': [fuel_type_petrol],
-                'Transmission': [transmission]
-        })
+print(f'Mean Squared Error: {mse}')
+print(f'R-Squared value: {r2_test}')
 
-        # Predict car price
-        predicted_price = model.predict(input_data)[0]
+data_frame = pd.DataFrame({'Actual Price': y_test.squeeze(), 'Predicted Price': y_pred.squeeze()})
+print(data_frame)
 
-        print(f"\nPredicted Car Price: {predicted_price} Lakh(s)")
+import joblib
 
+# Save the trained model
+joblib.dump(model, 'catboost_model.pkl')
 
-# Predict car price using user input
-predict_car_price(rf)
-
+# Save the scaler
+joblib.dump(sc, 'scaler.pkl')
