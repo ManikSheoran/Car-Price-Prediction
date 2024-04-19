@@ -46,10 +46,24 @@
                     <img src="assets/img/circle-xmark-regular.svg" alt="Close" class="close">
                     <h1 class="h1-css">Car Price Prediction</h1>
 
-                    <form  class = "form_predict" action="/predict" method="post">
+                    <form action="/predict" method="post">
                         <label for="Kilometers_Driven">Kilometers Driven:</label>
                         <input type="text" name="Kilometers_Driven" required>
                     
+                        <label for="Location">Location:</label>
+                        <select name="Location" required>
+                            <option value="Ahmedabad">Ahmedabad</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Coimbatore">Coimbatore</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Jaipur">Jaipur</option>
+                            <option value="Kochi">Kochi</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Hyderabad">Other..</option>
+                        </select>
                         <label for="Year">Year:</label>
                         <input type="text" name="Year" required>
                     
@@ -58,7 +72,6 @@
                             <option value="0">First</option>
                             <option value="1">Second</option>
                             <option value="2">Third</option>
-                            <option value="3">Fourth & Above</option>
                         </select>
                     
                         <label for="Mileage">Mileage (kmpl):</label>
@@ -80,7 +93,11 @@
                             <option value="CNG">CNG</option>
                             <option value="LPG">LPG</option>
                         </select>
-                    
+                        <label for="Transmission">Transmission:</label>
+                        <select name="Transmission" required>
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
                         <input class="submit_predict" style="margin-top: 15px;";" type="submit" value="Predict">
                     </form> 
                 </div>
