@@ -111,7 +111,7 @@ hr {
   height: 100%;
   position: absolute;
   top: 100px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: top;
   text-align: center;
