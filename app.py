@@ -26,7 +26,7 @@ def predict():
     input_df = pd.DataFrame({
         'Kilometers_Driven': [float(input_data.get('Kilometers_Driven', 20000))],
         'Year': [int(input_data.get('Year', 2020))],
-        'Owner_Type': [int(input_data.get['Owner_Type'])],
+        'Owner_Type': [int(input_data['Owner_Type'])],
         'Mileage': [float(input_data.get('Mileage', 18.0)).split()[0]], 
         'Engine': [float(input_data.get('Engine', 1197.0)).split()[0]],
         'Power': [float(input_data.get('Power', 82.0)).split()[0]], 
