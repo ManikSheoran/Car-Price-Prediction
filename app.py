@@ -24,13 +24,13 @@ def predict():
 
     # Prepare the input data as a DataFrame
     input_df = pd.DataFrame({
-        'Kilometers_Driven': [float(input_data['Kilometers_Driven']) if float(input_data['Kilometers_Driven']) != None else 20000],
+        'Kilometers_Driven': [float(input_data['Kilometers_Driven']) if float(input_data['Kilometers_Driven']) != None else int(20000)],
         'Year': [int(input_data['Year']) if int(input_data['Year']) != None else 2020],
         'Owner_Type': [int(input_data['Owner_Type'])],
-        'Mileage': [float(input_data['Mileage'].split()[0]) if float(input_data['Mileage'].split()[0]) != None else 18], 
-        'Engine': [float(input_data['Engine'].split()[0]) if float(input_data['Engine'].split()[0]) != None else 1100],  
-        'Power': [float(input_data['Power'].split()[0]) if float(input_data['Power'].split()[0]) != None else 70], 
-        'Seats': [float(input_data['Seats']) if float(input_data['Seats']) != None else 5],
+        'Mileage': [float(input_data['Mileage'].split()[0]) if float(input_data['Mileage'].split()[0]) != None else int(18)], 
+        'Engine': [float(input_data['Engine'].split()[0]) if float(input_data['Engine'].split()[0]) != None else int(1100)],  
+        'Power': [float(input_data['Power'].split()[0]) if float(input_data['Power'].split()[0]) != None else int(70)], 
+        'Seats': [float(input_data['Seats']) if float(input_data['Seats']) != None else int(5)],
         'Fuel_Type_CNG': [1 if input_data['Fuel_Type'] == 'CNG' else 0],
         'Fuel_Type_Diesel': [1 if input_data['Fuel_Type'] == 'Diesel' else 0],
         'Fuel_Type_LPG': [1 if input_data['Fuel_Type'] == 'LPG' else 0],
