@@ -24,13 +24,13 @@ def predict():
 
     # Prepare the input data as a DataFrame
     input_df = pd.DataFrame({
-        'Kilometers_Driven': [float(input_data['Kilometers_Driven']) if float(input_data['Kilometers_Driven']) != None else int(20000)],
+        'Kilometers_Driven': [float(input_data['Kilometers_Driven']) if input_data['Kilometers_Driven'] != None else float(20000)],
         'Year': [int(input_data['Year']) if int(input_data['Year']) != None else 2020],
         'Owner_Type': [int(input_data['Owner_Type'])],
-        'Mileage': [float(input_data['Mileage'].split()[0]) if float(input_data['Mileage'].split()[0]) != None else int(18)], 
-        'Engine': [float(input_data['Engine'].split()[0]) if float(input_data['Engine'].split()[0]) != None else int(1100)],  
-        'Power': [float(input_data['Power'].split()[0]) if float(input_data['Power'].split()[0]) != None else int(70)], 
-        'Seats': [float(input_data['Seats']) if float(input_data['Seats']) != None else int(5)],
+        'Mileage': [float(input_data['Mileage'].split()[0]) if input_data['Mileage'].split()[0] != None else float(18)], 
+        'Engine': [float(input_data['Engine'].split()[0]) if input_data['Engine'].split()[0] != None else float(1100)],  
+        'Power': [float(input_data['Power'].split()[0]) if input_data['Power'].split()[0] != None else float(70)], 
+        'Seats': [float(input_data['Seats']) if input_data['Seats'] != None else float(5)],
         'Fuel_Type_CNG': [1 if input_data['Fuel_Type'] == 'CNG' else 0],
         'Fuel_Type_Diesel': [1 if input_data['Fuel_Type'] == 'Diesel' else 0],
         'Fuel_Type_LPG': [1 if input_data['Fuel_Type'] == 'LPG' else 0],
@@ -58,5 +58,5 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    from waitress import serve
-    serve(app, host='0.0.0.0', port=5000)
+    # from waitress import serve
+    # serve(app, host='0.0.0.0', port=5000)
