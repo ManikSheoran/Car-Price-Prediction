@@ -27,9 +27,9 @@ def predict():
         'Kilometers_Driven': [float(input_data.get('Kilometers_Driven', 20000))],
         'Year': [int(input_data.get('Year', 2020))],
         'Owner_Type': [int(input_data.get('Owner_Type', 1))],
-        'Mileage': [float(input_data.get('Mileage', '18 kmpl').split()[0])],
-        'Engine': [float(input_data.get('Engine', '1100 CC').split()[0])],
-        'Power': [float(input_data.get('Power', '70 bhp').split()[0])],
+        'Mileage': [float(input_data.get('Mileage', '18 kmpl').split()[0]) if input_data.get('Mileage') else float(18)],
+        'Engine': [float(input_data.get('Engine', '1100 CC').split()[0]) if input_data.get('Engine') else float(1100)],
+        'Power': [float(input_data.get('Power', '70 bhp').split()[0]) if input_data.get('Power') else float(70)],
         'Seats': [float(input_data.get('Seats', 5))],
         'Fuel_Type_CNG': [1 if input_data.get('Fuel_Type', '') == 'CNG' else 0],
         'Fuel_Type_Diesel': [1 if input_data.get('Fuel_Type', '') == 'Diesel' else 0],
@@ -48,6 +48,7 @@ def predict():
         'Location_Mumbai': [1 if input_data.get('Location', '') == 'Mumbai' else 0],
         'Location_Pune': [1 if input_data.get('Location', '') == 'Pune' else 0]
     })
+
 
     input_scaled = scaler.transform(input_df)
 
