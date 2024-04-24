@@ -47,64 +47,70 @@
         <div class="popup">
             <div class="popup-content">
                 <img src="../static/img/circle-xmark-regular.svg" alt="Close" class="close">
-                <h1 class="h1-css">Car Price Prediction</h1>
-
-                <form action="/predict" method="post">
-                    <label for="Kilometers_Driven">Kilometers Driven:</label>
-                    <input type="text" name="Kilometers_Driven">
-
-                    <label for="Location">Location:</label>
-                    <select name="Location">
-                        <option value="Ahmedabad">Ahmedabad</option>
-                        <option value="Bangalore">Bangalore</option>
-                        <option value="Chennai">Chennai</option>
-                        <option value="Coimbatore">Coimbatore</option>
-                        <option value="Delhi">Delhi</option>
-                        <option value="Jaipur">Jaipur</option>
-                        <option value="Kochi">Kochi</option>
-                        <option value="Kolkata">Kolkata</option>
-                        <option value="Mumbai">Mumbai</option>
-                        <option value="Pune">Pune</option>
-                        <option value="Hyderabad">Other..</option>
-                    </select>
-                    <label for="Year">Year:</label>
-                    <input type="text" name="Year">
-
-                    <label for="Owner_Type">Owner Type:</label>
-                    <select name="Owner_Type">
-                        <option value="0">First</option>
-                        <option value="1">Second</option>
-                        <option value="2">Third</option>
-                    </select>
-
-                    <label for="Mileage">Mileage (kmpl):</label>
-                    <input type="text" name="Mileage">
-
-                    <label for="Engine">Engine (cc):</label>
-                    <input type="text" name="Engine">
-
-                    <label for="Power">Power (bhp):</label>
-                    <input type="text" name="Power">
-
-                    <label for="Seats">Seats:</label>
-                    <input type="text" name="Seats">
-
-                    <label for="Fuel_Type">Fuel Type:</label>
-                    <select name="Fuel_Type">
-                        <option value="Petrol">Petrol</option>
-                        <option value="Diesel">Diesel</option>
-                        <option value="CNG">CNG</option>
-                        <option value="LPG">LPG</option>
-                    </select>
-                    <label for="Transmission">Transmission:</label>
-                    <select name="Transmission">
-                        <option value="Manual">Manual</option>
-                        <option value="Automatic">Automatic</option>
-                    </select>
-                    <input class="submit_predict" style="margin-top: 15px;" type="submit" value="Predict">
+                <h1 class="h1-css">Used Car Price Prediction</h1>
+        
+                <form action="/predict" method="post" style="display: flex; flex-wrap: wrap; width: 750px;">
+                    <div style="flex: 1; padding-right: 10px;">
+                        <label for="Kilometers_Driven">Kilometers Driven:</label>
+                        <input type="text" name="Kilometers_Driven" style="width: 100%; box-sizing: border-box; padding: 7px;">
+        
+                        <label for="Location">Location:</label>
+                        <select name="Location" style="width: 100%; box-sizing: border-box; padding: 7px; height: 42px; margin-bottom: 15px;">
+                            <option value="Ahmedabad">Ahmedabad</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Coimbatore">Coimbatore</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Jaipur">Jaipur</option>
+                            <option value="Kochi">Kochi</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Hyderabad">Other..</option>
+                        </select>
+        
+                        <label for="Year">Year:</label>
+                        <input type="text" name="Year" style="width: 100%; box-sizing: border-box; padding: 7px; ">
+        
+                        <label for="Owner_Type">Owner Type:</label>
+                        <select name="Owner_Type" style="width: 100%; box-sizing: border-box; padding: 7px; height: 42px;margin-bottom: 15px;">
+                            <option value="0">First</option>
+                            <option value="1">Second</option>
+                            <option value="2">Third</option>
+                        </select>
+        
+                        <label for="Fuel_Type">Fuel Type:</label>
+                        <select name="Fuel_Type" style="width: 100%; box-sizing: border-box; padding: 7px; height: 42px;">
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="CNG">CNG</option>
+                            <option value="LPG">LPG</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; padding-left: 10px;">
+                        <label for="Mileage">Mileage (kmpl):</label>
+                        <input type="text" name="Mileage" style="width: 100%; box-sizing: border-box; padding: 7px;">
+        
+                        <label for="Engine">Engine (cc):</label>
+                        <input type="text" name="Engine" style="width: 100%; box-sizing: border-box; padding: 7px;">
+        
+                        <label for="Power">Power (bhp):</label>
+                        <input type="text" name="Power" style="width: 100%; box-sizing: border-box; padding: 7px;">
+        
+                        <label for="Seats">Seats:</label>
+                        <input type="text" name="Seats" style="width: 100%; box-sizing: border-box; padding: 7px;">
+        
+                        <label for="Transmission">Transmission:</label>
+                        <select name="Transmission" style="width: 100%; box-sizing: border-box; padding: 7px; height: 42px;">
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
+                    </div>
+                    <input class="submit_predict" style="margin-top: 15px; width: 100%;" type="submit" value="Predict">
                 </form>
             </div>
-        </div>
+        </div> 
+                
         <script>
             document.getElementById("button").addEventListener("click", function () {
                 document.querySelector(".popup").style.display = "flex";
