@@ -33,7 +33,7 @@ def predict():
         'Seats': 5,
         'Fuel_Type': 'Petrol',
         'Transmission': 'Manual',
-        'Location': 'Delhi'
+        'Location': 'Kolkata'
     }
 
     input_df = pd.DataFrame({
